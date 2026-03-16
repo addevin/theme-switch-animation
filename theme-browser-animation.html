@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Theme Reveal Demo</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+      };
+    </script>
+
+    <style>
+      /* View transition animation */
+
+      ::view-transition-new(root) {
+        /* animation: circleReveal 700ms ease forwards; */
+        /* animation: diagonalReveal 700ms ease forwards; */
+        /* animation: revealLeftRight 600ms ease forwards; */
+        /* animation: shutterDown 700ms cubic-bezier(.22,1,.36,1) forwards; */
+        animation: var(--theme-transition-animation);
+      }
+
+      ::view-transition-old(root) {
+        animation: none;
+      }
+
+      @keyframes circleReveal {
+        from {
+          clip-path: circle(0 at var(--x) var(--y));
+        }
+        to {
+          clip-path: circle(150vmax at var(--x) var(--y));
+        }
+      }
+
+      @keyframes diagonalReveal {
+        from {
+          clip-path: polygon(
+            0 0,
+            0 0,
+            0 0,
+            0 0
+          );
+        }
+        to {
+          clip-path: polygon(
+            0 0,
+            100% 0,
+            100% 100%,
+            0 100%
+          );
+        }
+      }
+
+      @keyframes revealLeftRight {
+
+        from {
+          clip-path: inset(0 100% 0 0);
+        }
+
+        to {
+          clip-path: inset(0 0 0 0);
+        }
+
+      }
+
+      @keyframes shutterDown {
+
+        0% {
+          clip-path: inset(0 0 100% 0);
+        }
+
+        80% {
+          clip-path: inset(0 0 -5% 0);
+        }
+
+        100% {
+          clip-path: inset(0 0 0 0);
+        }
+
+      }
+    </style>
+  </head>
+
+  <body
+    class="bg-white text-black dark:bg-neutral-900 dark:text-white transition-colors duration-300"
+  >
+    <header
+      class="sticky top-0 backdrop-blur border-b border-neutral-200 dark:border-neutral-700"
+    >
+      <div class="max-w-6xl mx-auto flex justify-between items-center p-4">
+        <h1 class="text-xl font-bold">Theme Reveal Demo</h1>
+
+        <div class="flex gap-2">
+          <select
+            class="h-8 px-3 pr-8 rounded-md border border-[#d4d4d8] bg-[#ffffff] text-xs text-[#18181b] cursor-pointer hover:bg-[#f4f4f5] focus:outline-none"
+            onchange="themeAnimationSelect(this.value)"
+          >
+            <option value="circleReveal" selected>Circle</option>
+            <option value="diagonalReveal">Diagonal</option>
+            <option value="revealLeftRight">Left Right</option>
+            <option value="shutterDown">Shutter</option>
+          </select>
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/API/Document/startViewTransition"
+              target="_blank"
+              class="px-4 py-2 rounded bg-neutral-200 dark:bg-neutral-700 hover:scale-105 transition"
+            >
+              Know More
+            </a>
+            <button
+              onclick="toggleTheme(event)"
+              class="px-4 py-2 rounded bg-neutral-200 dark:bg-neutral-700 hover:scale-105 transition"
+            >
+              Toggle Theme
+            </button>
+
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto p-6 space-y-10">
+      <section class="space-y-4">
+        <h2 class="text-2xl font-semibold">Section 1</h2>
+
+        <p class="text-neutral-600 dark:text-neutral-300">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas laborum
+          voluptate ipsum laboriosam voluptatem porro molestiae consequatur
+          voluptatibus. Nulla dignissimos doloremque.
+        </p>
+
+        <div class="grid grid-cols-3 gap-4">
+          <div class="p-4 rounded bg-neutral-100 dark:bg-neutral-800">
+            Card content
+          </div>
+
+          <div class="p-4 rounded bg-neutral-100 dark:bg-neutral-800">
+            Card content
+          </div>
+
+          <div class="p-4 rounded bg-neutral-100 dark:bg-neutral-800">
+            Card content
+          </div>
+        </div>
+      </section>
+
+      <section class="space-y-4">
+        <h2 class="text-2xl font-semibold">Section 2</h2>
+
+        <div class="grid grid-cols-4 gap-4">
+          <div class="h-32 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
+          <div class="h-32 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
+          <div class="h-32 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
+          <div class="h-32 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
+
+          <div class="h-32 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
+          <div class="h-32 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
+          <div class="h-32 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
+          <div class="h-32 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
+        </div>
+      </section>
+
+      <section class="space-y-4">
+        <h2 class="text-2xl font-semibold">Section 3</h2>
+
+        <ul class="space-y-2">
+          <li class="p-3 rounded bg-neutral-100 dark:bg-neutral-800">Item 1</li>
+          <li class="p-3 rounded bg-neutral-100 dark:bg-neutral-800">Item 2</li>
+          <li class="p-3 rounded bg-neutral-100 dark:bg-neutral-800">Item 3</li>
+          <li class="p-3 rounded bg-neutral-100 dark:bg-neutral-800">Item 4</li>
+          <li class="p-3 rounded bg-neutral-100 dark:bg-neutral-800">Item 5</li>
+        </ul>
+      </section>
+
+      <section class="space-y-4">
+        <h2 class="text-2xl font-semibold">Section 4</h2>
+
+        <p class="text-neutral-600 dark:text-neutral-300">
+          More dummy content to make the page longer so the effect is more
+          obvious.
+        </p>
+
+        <div class="grid grid-cols-2 gap-6">
+          <div class="p-6 bg-neutral-100 dark:bg-neutral-800 rounded">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </div>
+
+          <div class="p-6 bg-neutral-100 dark:bg-neutral-800 rounded">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      function toggleTheme(e) {
+        const x = e.clientX;
+        const y = e.clientY;
+
+        document.documentElement.style.setProperty("--x", x + "px");
+        document.documentElement.style.setProperty("--y", y + "px");
+
+        if (!document.startViewTransition) {
+          document.documentElement.classList.toggle("dark");
+          return;
+        }
+
+        document.startViewTransition(() => {
+          document.documentElement.classList.toggle("dark");
+        });
+      }
+      
+      function themeAnimationSelect(theme) {
+        const animations = {
+          circleReveal: 'circleReveal 700ms ease forwards',
+          diagonalReveal: 'diagonalReveal 700ms ease forwards',
+          revealLeftRight: 'revealLeftRight 600ms ease forwards',
+          shutterDown: 'shutterDown 700ms cubic-bezier(.22,1,.36,1) forwards'
+        };
+
+        document.documentElement.style.setProperty(
+          '--theme-transition-animation',
+          animations[theme ?? 'circleReveal']
+        );
+      }
+      themeAnimationSelect('circleReveal');
+    </script>
+  </body>
+</html>
